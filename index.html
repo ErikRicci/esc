@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Select</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<script>
+
+    var campeoes = [];
+    var gabunda = [];
+    var actualSkins;
+
+    var getChamps = () => {
+        $.get("http://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion.json", function (data, status) {
+            campeoes = Object.values(data.data);
+            loadChamps();
+        });
+    }
+
+    var loadChamps = () => {
+        for (var i = 0; i < campeoes.length; i++) {
+            document.getElementById('champs').innerHTML =
+                document.getElementById('champs').innerHTML + `<option value="${campeoes[i].id}">${campeoes[i].name}</option>`;
+        }
+        setChamp('Aatrox');
+    }
+
+    var setChamp = (name) => {
+        document.getElementById('skin').setAttribute('src',
+            'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_0.jpg');
+        getSkins(name);
+    }
+
+    var getSkins = (name) => {
+        $.get("http://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion/" + name + ".json", function (data, status) {
+            actualSkins = Object.values(data.data)[0].skins;
+            loadSkins();
+        });
+    }
+
+    var loadSkins = () => {
+        document.getElementById('skins').innerHTML = "";
+        actualSkins.forEach(function (element) {
+            if(element.name == 'default')
+                element.name = 'Skin Padrão';
+            document.getElementById('skins').innerHTML =
+                document.getElementById('skins').innerHTML + `<option value="${element.num}">${element.name}</option>`;
+        });
+    }
+
+    var setSkin = (name, skin) => {
+        document.getElementById('skin').setAttribute('src',
+            'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_' + skin + '.jpg');
+    }
+
+</script>
+
+<body onload="getChamps()">
+    <img style="width: 40vw;" id="skin" src=""><br>
+    <select style="width: 20vw;" name="champs" id="champs" onchange="setChamp(this.value)">
+
+    </select>
+    <select style="width: 20vw;" name="skins" id="skins" onchange="setSkin(document.getElementById('champs').value,this.value)">
+
+    </select>
+</body>
+
+</html>
