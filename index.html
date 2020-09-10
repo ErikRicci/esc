@@ -15,7 +15,7 @@
     var actualSkins;
 
     var getChamps = () => {
-        $.get("http://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion.json", function (data, status) {
+        $.get("https://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion.json", function (data, status) {
             campeoes = Object.values(data.data);
             loadChamps();
         });
@@ -31,12 +31,12 @@
 
     var setChamp = (name) => {
         document.getElementById('skin').setAttribute('src',
-            'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_0.jpg');
+            'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_0.jpg');
         getSkins(name);
     }
 
     var getSkins = (name) => {
-        $.get("http://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion/" + name + ".json", function (data, status) {
+        $.get("https://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion/" + name + ".json", function (data, status) {
             actualSkins = Object.values(data.data)[0].skins;
             loadSkins();
         });
@@ -54,7 +54,7 @@
 
     var setSkin = (name, skin) => {
         document.getElementById('skin').setAttribute('src',
-            'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_' + skin + '.jpg');
+            'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_' + skin + '.jpg');
     }
 
 </script>
