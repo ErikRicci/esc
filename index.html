@@ -8,119 +8,41 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
-<script>
+<style>
 
-    var campeoes = [];
-    var gabunda = [];
-    var actualSkins;
-    var campeoes2 = [];
-    var gabunda2 = [];
-    var actualSkins2;
+</style>
 
-    var getChamps = () => {
-        getChamps2();
-        $.get("https://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion.json", function (data, status) {
-            campeoes = Object.values(data.data);
-            loadChamps();
-        });
-    }
+<body onload="getChamps(); getChamps2();" style="left:50%">
 
-    var loadChamps = () => {
-        for (var i = 0; i < campeoes.length; i++) {
-            document.getElementById('champs').innerHTML =
-                document.getElementById('champs').innerHTML + `<option value="${campeoes[i].id}">${campeoes[i].name}</option>`;
-        }
-        setChamp('Aatrox');
-    }
+    <div style="width: 40vw;display:inline-block;">
+        <img style="width: 40vw; border-radius: 12px;" id="skin" src=""><br>
+        <select style="width: 40vw;" name="champs" id="champs" onchange="setChamp(this.value)">
 
-    var setChamp = (name) => {
-        document.getElementById('skin').setAttribute('src',
-            'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_0.jpg');
-        getSkins(name);
-    }
+        </select>
+        <select style="width: 40vw;" name="skins" id="skins"
+            onchange="setSkin(document.getElementById('champs').value,this.value)">
 
-    var getSkins = (name) => {
-        $.get("https://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion/" + name + ".json", function (data, status) {
-            actualSkins = Object.values(data.data)[0].skins;
-            loadSkins();
-        });
-    }
+        </select>
+    </div>
 
-    var loadSkins = () => {
-        document.getElementById('skins').innerHTML = "";
-        actualSkins.forEach(function (element) {
-            if(element.name == 'default')
-                element.name = 'Skin Padrão';
-            document.getElementById('skins').innerHTML =
-                document.getElementById('skins').innerHTML + `<option value="${element.num}">${element.name}</option>`;
-        });
-    }
+    <div style="width: 10vw; display:inline-block;">
+        <label style="margin: auto">VS</label>
+    </div>
 
-    var setSkin = (name, skin) => {
-        document.getElementById('skin').setAttribute('src',
-            'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_' + skin + '.jpg');
-    }
-    
-    var getChamps2 = () => {
-        $.get("https://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion.json", function (data, status) {
-            campeoes2 = Object.values(data.data);
-            loadChamps2();
-        });
-    }
+    <div style="width: 40vw; display:inline-block;">
+        <img style="width: 40vw; border-radius: 12px;" id="skin2" src=""><br>
+        <select style="width: 40vw;" name="champs2" id="champs2" onchange="setChamp2(this.value)">
 
-    var loadChamps2 = () => {
-        for (var i = 0; i < campeoes2.length; i++) {
-            document.getElementById('champs2').innerHTML =
-                document.getElementById('champs2').innerHTML + `<option value="${campeoes2[i].id}">${campeoes2[i].name}</option>`;
-        }
-        setChamp2('Aatrox');
-    }
+        </select>
+        <select style="width: 40vw;" name="skins2" id="skins2"
+            onchange="setSkin2(document.getElementById('champs2').value,this.value)">
 
-    var setChamp2 = (name) => {
-        document.getElementById('skin2').setAttribute('src',
-            'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_0.jpg');
-        getSkins2(name);
-    }
+        </select>
+    </div>
 
-    var getSkins2 = (name) => {
-        $.get("https://ddragon.leagueoflegends.com/cdn/10.18.1/data/pt_BR/champion/" + name + ".json", function (data, status) {
-            actualSkins2 = Object.values(data.data)[0].skins;
-            loadSkins2();
-        });
-    }
 
-    var loadSkins2 = () => {
-        document.getElementById('skins2').innerHTML = "";
-        actualSkins2.forEach(function (element) {
-            if(element.name == 'default')
-                element.name = 'Skin Padrão';
-            document.getElementById('skins2').innerHTML =
-                document.getElementById('skins2').innerHTML + `<option value="${element.num}">${element.name}</option>`;
-        });
-    }
 
-    var setSkin2 = (name, skin) => {
-        document.getElementById('skin2').setAttribute('src',
-            'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + name + '_' + skin + '.jpg');
-    }
-
-</script>
-
-<body onload="getChamps()" style="left:50%">
-    <img style="width: 40vw;" id="skin" src=""><br>
-    <select style="width: 20vw;" name="champs" id="champs" onchange="setChamp(this.value)">
-
-    </select>
-    <select style="width: 20vw;" name="skins" id="skins" onchange="setSkin(document.getElementById('champs').value,this.value)">
-
-    </select><br>
-     <img style="width: 40vw;" id="skin2" src=""><br>
-    <select style="width: 20vw;" name="champs2" id="champs2" onchange="setChamp2(this.value)">
-
-    </select>
-    <select style="width: 20vw;" name="skins2" id="skins2" onchange="setSkin2(document.getElementById('champs').value,this.value)">
-
-    </select>
+    <script src="script.js"></script>
 </body>
 
 </html>
